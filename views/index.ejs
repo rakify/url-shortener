@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Url Shortener</title>
+
+    <!-- Pure css stylesheet -->
+    <link rel="stylesheet" href="https://unpkg.com/purecss@2.0.6/build/pure-min.css"
+        integrity="sha384-Uu6IeWbM+gzNVXJcM9XV3SohHtmWE+3VGi496jvgX1jyvDTXfdK+rfZc8C1Aehk5" crossorigin="anonymous">
+
+    <!-- Custom styles -->
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+
+    <% if(locals.error) { %>
+    <div class="error">
+        <%= error %>
+    </div>
+    <% } %>
+
+    <% if(locals.success) { %>
+    <div class="success">
+        Short link generated: <%= success %> <a href="<%= success %>">Go</a>
+        <input type="text" value="<%= success %>" id="myInput">
+        <div class="tooltip">
+            <button onclick="myFunction()" onmouseout="outFunc()"  class="pure-button button-success">
+                <span class="tooltiptext" id="myTooltip">Copy</span>
+                Copy
+            </button>
+        </div>
+    </div>
+    <% } %>
+
+    <form class="pure-form pure-form-aligned legend" action="/" method="POST">
+        <fieldset>
+            <legend class="pure-button button-secondary">Simple URL Shortener</legend>
+
+            <div class="pure-control-group">
+                <label for="url">
+                    Long URL:
+                </label>
+                <input type="text" name="url" placeholder="Paste long url here.." value=<%= locals.url?url : "" %>>
+            </div>
+
+            <div class="pure-control-group">
+                <label for="path">
+                    Custom Path:
+                </label>
+                <input type="text" name="path" value="<%= locals.path? path : "" %>">
+            </div>
+
+            <div class="pure-controls">
+                <button type="submit" class="pure-button pure-button-primary">Submit</button>
+            </div>
+        </fieldset>
+    </form>
+
+
+    <!-- Copy text to clipboard by w3schools -->
+    <script>
+        function myFunction() {
+            var copyText = document.getElementById("myInput");
+            copyText.select();
+            copyText.setSelectionRange(0, 99999);
+            document.execCommand("copy");
+
+            var tooltip = document.getElementById("myTooltip");
+            tooltip.innerHTML = "Copied";
+        }
+
+        function outFunc() {
+            var tooltip = document.getElementById("myTooltip");
+            tooltip.innerHTML = "Copy to clipboard";
+        }
+    </script>
+</body>
+
+</html>
